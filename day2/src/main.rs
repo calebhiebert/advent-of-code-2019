@@ -11,13 +11,20 @@ fn main() {
     let mut buf = String::new();
     stdin().read_to_string(&mut buf).unwrap();
 
-    let mut program = parse_program(&buf);
-    program[1] = 12;
-    program[2] = 2;
+    for noun in 0..99 {
+        for verb in 0..99 {
+            let mut program = parse_program(&buf);
+            program[1] = noun;
+            program[2] = verb;
 
-    execute(&mut program);
+            execute(&mut program);
 
-    println!("Position 0: {}", program[0]);
+            if program[0] == 19690720 {
+                println!("Result {}", 100 * noun + verb);
+                return
+            }
+        }
+    }
 }
 
 fn parse_program(input: &str) -> Vec<i32> {
